@@ -60,6 +60,12 @@ class BinaryReader:
 	def seek(self, *args):
 		return self.buf.seek(*args)
 
+	def align2(self, alignment):
+		pos = self.tell()
+		mod = pos % alignment
+		if (mod != 0):
+			self.seek(alignment - mod, 1)
+
 	def tell(self):
 		return self.buf.tell()
 

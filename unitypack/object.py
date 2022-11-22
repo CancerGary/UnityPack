@@ -53,7 +53,10 @@ class ObjectInfo:
 
 	def load(self, buf):
 		self.path_id = self.read_id(buf)
-		self.data_offset = buf.read_uint() + self.asset.data_offset
+		if self.asset.format >= 22:
+			self.data_offset = buf.read_int64() + self.asset.data_offset
+		else:
+			self.data_offset = buf.read_uint() + self.asset.data_offset
 		self.size = buf.read_uint()
 		if self.asset.format < 17:
 			self.type_id = buf.read_int()

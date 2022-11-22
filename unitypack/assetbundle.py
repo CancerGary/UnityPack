@@ -103,6 +103,8 @@ class AssetBundle:
 		if eof_metadata:
 			orig_pos = buf.tell()
 			buf.seek(-self.ciblock_size, 2)
+		if self.format_version >= 7:
+			buf.align2(16)
 		data = self.read_compressed_data(buf, compression)
 		if eof_metadata:
 			buf.seek(orig_pos)

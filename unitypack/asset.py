@@ -119,6 +119,19 @@ class Asset:
 
 		if self.format >= 9:
 			self.endianness = buf.read_uint()
+
+		if self.format >= 22:
+			self.metadata_size = buf.read_uint()
+			self.file_size = buf.read_int64()
+			self.data_offset = buf.read_int64()
+			unknown1 = buf.read_int64()
+
+		if self.format >= 9:
+			if self.endianness == 0:
+				buf.endian = "<"
+
+		if self.format >= 9:
+			self.endianness = buf.read_uint()
 			if self.endianness == 0:
 				buf.endian = "<"
 
